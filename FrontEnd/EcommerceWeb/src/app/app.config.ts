@@ -10,11 +10,12 @@ import { ProductEffects } from './State/Product/Product.effects';
 import { provideEffects } from '@ngrx/effects';
 import { OrderEffects } from './State/Order/Order.effects';
 import { orderReducer } from './State/Order/Order.reducers';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideRouter(routes), provideClientHydration(), provideStore({ products: productReducer,   orders: orderReducer  }),
   provideEffects([ProductEffects, OrderEffects]),
-  provideHttpClient(),
+  provideHttpClient(), provideAnimationsAsync(),
 
   ]
 };

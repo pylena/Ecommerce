@@ -1,13 +1,27 @@
-<div class="container mt-5">
-    <h1 class="text-center mb-4">Product Details</h1>
-    <div *ngIf="product">
-      <p><strong>ID:</strong> {{ product.id}}</p>
-      <p><strong>Name:</strong> {{ product.name }}</p>
-      <p><strong>Description:</strong> {{ product.description }}</p>
-      <p><strong>Category:</strong> {{ product.imageUrl }}</p>
-      <p><strong>Price:</strong> {{ product.price }}</p>
-    </div>
-    <div *ngIf="!product" class="alert alert-warning">
-      Product not found.
+<div class="container mt-4">
+  <h1 class="text-primary text-center">Product Details</h1>
+
+  <div *ngIf="product; else noProduct">
+    <div class="card shadow-sm mt-4">
+      <div class="card-body">
+        <div class="text-center mb-3">
+          <img *ngIf="product.imageUrl" [src]="product.imageUrl" alt="{{ product.name }}" class="img-fluid rounded" style="max-width: 250px;">
+        </div>
+
+        <h4 class="card-title text-center">{{ product.name }}</h4>
+        <p class="text-muted text-center">{{ product.description }}</p>
+
+        <hr>
+
+        <ul class="list-group">
+          <li class="list-group-item"><strong>ID:</strong> {{ product.id }}</li>
+          <li class="list-group-item"><strong>Image:</strong> {{ product.imageUrl }}</li>
+          <li class="list-group-item"><strong>Price:</strong> ${{ product.price }}</li>
+        </ul>
+      </div>
     </div>
   </div>
+
+  <!-- Error Message -->
+  <ng-template #noProduct>
+    
