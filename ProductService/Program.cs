@@ -6,7 +6,18 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngular",
+        policy => policy.WithOrigins("http://localhost:4200") // Allow Angular app connection
+                        .AllowAnyMethod()  
+                        .AllowAnyHeader()  
+                        .AllowCredentials()); 
+});
+
 builder.Services.AddControllers();
+
+
 
 
 builder.Services.AddDbContext<AppDbContext>(option =>
@@ -28,6 +39,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("AllowAngular");
+
 
 app.UseAuthorization();
 

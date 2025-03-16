@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ProductService.Data;
+using ProductService.Models;
 using ProductService.Models.Dto;
 
 namespace ProductService.Controllers
@@ -70,6 +72,37 @@ namespace ProductService.Controllers
             _db.SaveChanges();
             return Ok(updatedProduct);
 
+        }
+
+        [HttpPost]
+        public IActionResult addProduct(ProductDto product)
+        {
+            var new_product = new Product
+            {
+                Name = product.Name,
+                Description = product.Description,
+                Price = product.Price,
+                ImageUrl = product.ImageUrl,
+            };
+            _db.Products.Add(new_product);
+            _db.SaveChanges();
+            return Ok(new_product); 
+
+        }
+
+        [HttpGet("products")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProductsByIds([FromQuery] Guid[] ids)
+        {
+            if (ids == null || ids.Length == 0)
+            {
+                return BadRequest("Error No product ID Provided.");
+            }
+
+            var products = await _db.Products
+                .Where(p => ids.Contains(p.Id))
+                .ToListAsync();
+
+            return Ok(products);
         }
 
     }

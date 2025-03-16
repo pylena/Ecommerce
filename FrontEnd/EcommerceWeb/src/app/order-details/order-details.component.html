@@ -1,0 +1,27 @@
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Order Details</h1>
+  
+    <div *ngIf="order$ | async as order; else noOrder">
+      <p><strong>ID:</strong> {{ order.id }}</p>
+      <h3>Order Items:</h3>
+      <ul>
+        <li *ngFor="let item of order.orderItems">
+          <div *ngIf="products$ | async as products">
+            <div *ngFor="let product of products">
+              <div *ngIf="product.id === item.productId">
+                <strong>Product:</strong> {{ product.name }} - {{ product.price}}
+                <br>
+                <strong>Quantity:</strong> {{ item.quantity }}
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  
+    <ng-template #noOrder>
+      <div class="alert alert-warning">
+       sorry Order is not found
+      </div>
+    </ng-template>
+  </div>

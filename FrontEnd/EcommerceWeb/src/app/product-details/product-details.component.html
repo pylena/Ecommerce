@@ -1,0 +1,13 @@
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Product Details</h1>
+    <div *ngIf="product">
+      <p><strong>ID:</strong> {{ product.id}}</p>
+      <p><strong>Name:</strong> {{ product.name }}</p>
+      <p><strong>Description:</strong> {{ product.description }}</p>
+      <p><strong>Category:</strong> {{ product.imageUrl }}</p>
+      <p><strong>Price:</strong> {{ product.price }}</p>
+    </div>
+    <div *ngIf="!product" class="alert alert-warning">
+      Product not found.
+    </div>
+  </div>
